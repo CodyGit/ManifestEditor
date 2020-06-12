@@ -6,6 +6,8 @@
 
 原先做过一个java的版本，只是当时写得比较潦草（结构乱、注释少），碰巧最近又出现了一个Bug。鼓足勇气想在原来的基础上修复，结果一边看一边骂，再加上现在的构建脚本都是用**python**，所以又重新用python翻新了一版修复了Bug。
 
+想了解AndroidManifest.xml的细节，请参考一位大神画的[结构图](https://bbs.pediy.com/thread-194206.htm)
+
 **`ps: 要用python3`**
 
 ### 安装
@@ -21,6 +23,7 @@
 * 一次性修改同一个`TAG`下的多个属性
 
 ```python
+    from ManifestEditor import *
     input_xml = "test/AndroidManifest.xml"
     output_xml = "test/cody-AndroidManifest.xml"
     attr_obj = {
@@ -38,6 +41,7 @@
 * 只修改一个属性
 
 ```python
+    from ManifestEditor import *
     # 把 android.permission.WRITE_SMS 权限修改成 android.permission.SEND_SMS
     input_xml = "test/AndroidManifest.xml"
     output_xml = "test/cody-AndroidManifest.xml"
@@ -51,6 +55,7 @@
     modify_attr(input_xml, attr_obj, new_attr_obj, output_xml)
 ```
 
+如果帮助到您，请不要吝啬您的小星星:star:
 
 ### TODO
 
