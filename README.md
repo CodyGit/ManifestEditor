@@ -41,7 +41,7 @@
     
     # 支持直接修改apk
     apk_path = "/path/to/apk"
-    modify_xml_attr(apk_path, attr_obj, new_attr_obj, output_xml)
+    modify_apk_attr(apk_path, attr_obj, new_attr_obj, output_xml)
 ```
 
 * 只修改一个属性
