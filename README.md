@@ -21,6 +21,8 @@
 ### 使用举例 
 
 * 一次性修改同一个`TAG`下的多个属性
+* 详细代码可以参考 `test/test.py`
+
 
 ```python
     from ManifestEditor import *
@@ -35,7 +37,11 @@
         {"key": "versionName", "value": "2.2.2"}
     ]
     # 不传 output_xml 就会把修改后的内容写回 input_xml
-    modify_attr(input_xml, attr_obj, new_attr_obj, output_xml)
+    modify_xml_attr(input_xml, attr_obj, new_attr_obj, output_xml)
+    
+    # 支持直接修改apk
+    apk_path = "/path/to/apk"
+    modify_xml_attr(apk_path, attr_obj, new_attr_obj, output_xml)
 ```
 
 * 只修改一个属性
@@ -52,7 +58,7 @@
     }
     new_attr_obj = {"key": "name", "value": "android.permission.SEND_SMS"}
     # 不传 output_xml 就会把修改后的内容写回 input_xml
-    modify_attr(input_xml, attr_obj, new_attr_obj, output_xml)
+    modify_xml_attr(input_xml, attr_obj, new_attr_obj, output_xml)
 ```
 
 如果帮助到您，请不要吝啬您的小星星:star:
