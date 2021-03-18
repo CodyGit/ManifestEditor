@@ -21,13 +21,25 @@ def _get_androidmanifest(input_apk):
         zip_stream.close()
     return tmp_xml
 
-def modify_apk_attr(input_apk, attr_obj, new_attr_obj):
+def modify_apk_attr(input_apk, attr_obj, new_attr_obj, output_apk=None):
     tmp_xml = _get_androidmanifest(input_apk)
     modify_xml_attr(tmp_xml, attr_obj, new_attr_obj)
-
-    zip_stream = zipfile.ZipFile(input_apk, "w", zipfile.ZIP_DEFLATED)
-    zip_stream.write(tmp_xml, "AndroidManifest.xml")
-    zip_stream.close()
+    tmp_apk = tempfile.mktemp('.apk')
+    # zipfile不支持直接更新里面的某个文件
+    # 现在的方案是把A中的所有文件重新写入一个新的zip中，过滤掉需要修改的部分
+    with zipfile.ZipFile(input_apk, "r", compression=zipfile.ZIP_DEFLATED, allowZip64=True) as zip_in:
+        with zipfile.ZipFile(tmp_apk, 'a', compression=zipfile.ZIP_DEFLATED, allowZip64=True) as zip_out:
+            zip_out.comment = zip_in.comment 
+            for item in zip_in.infolist():
+                if item.filename == "AndroidManifest.xml":
+                    zip_out.write(tmp_xml, item.filename)
+                    continue
+                zip_out.writestr(item, zip_in.read(item.filename))
+    zip_in.close()
+    zip_out.close()
+    if not output_apk:
+        output_apk = input_apk
+    os.rename(tmp_apk, output_apk)
 
 def get_apk_attr(input_apk, attr_obj):
     tmp_xml = _get_androidmanifest(input_apk)
