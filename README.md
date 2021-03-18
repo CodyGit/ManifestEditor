@@ -36,12 +36,13 @@
         {"key": "versionCode", "value": 100},
         {"key": "versionName", "value": "2.2.2"}
     ]
-    # 不传 output_xml 就会把修改后的内容写回 input_xml
+    # 不传 `output_xml` 就会把修改后的内容写回 input_xml
     modify_xml_attr(input_xml, attr_obj, new_attr_obj, output_xml)
     
-    # 支持直接修改apk
+    # 支持直接修改apk，不传 `output_apk` 就会直接把内容修改到原apk中 
     apk_path = "/path/to/apk"
-    modify_apk_attr(apk_path, attr_obj, new_attr_obj, output_xml)
+    output_apk = "/path/to/modify-apk"
+    modify_apk_attr(apk_path, attr_obj, new_attr_obj, output_apk)
 ```
 
 * 只修改一个属性
