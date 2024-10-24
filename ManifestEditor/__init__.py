@@ -39,7 +39,7 @@ def modify_apk_attr(input_apk, attr_obj, new_attr_obj, output_apk=None):
     zip_out.close()
     if not output_apk:
         output_apk = input_apk
-    os.rename(tmp_apk, output_apk)
+    shutil.move(tmp_apk, output_apk)
 
 def get_apk_attr(input_apk, attr_obj):
     tmp_xml = _get_androidmanifest(input_apk)
